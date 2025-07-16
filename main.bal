@@ -3,6 +3,10 @@ import ballerina/log;
 
 // Service 1: Customer Verification Service (Port 8080)
 service /verification on new http:Listener(8086) {
+
+    function init() returns error? {
+        log:printInfo("Verification Service initialised !");
+    }
     
     resource function post customer(CustomerVerificationRequest request) returns CustomerVerificationResponse|ErrorResponse {
         log:printInfo("Processing customer verification request");
@@ -52,7 +56,10 @@ service /verification on new http:Listener(8086) {
 
 // Service 2: SMS Alert Service (Port 8081) - Requires verification token from Service 1
 service /sms on new http:Listener(8085) {
-    
+
+    function init() returns error? {
+        log:printInfo("SMS Service initialised !");
+    }    
     resource function post alert(SmsAlertRequest request) returns SmsAlertResponse|ErrorResponse {
         log:printInfo("Processing SMS alert request");
         
